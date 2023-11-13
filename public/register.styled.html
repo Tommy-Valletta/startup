@@ -15,6 +15,14 @@
             justify-content: center;
             height: 100vh;
         }
+        #header {
+            width:100%; 
+            background: url(yourimage);
+        }
+
+        #headerContent {
+            margin: 0 auto; width: 960px;
+        }
 
         form {
             background-color: #fff;
@@ -50,7 +58,7 @@
     </style>
 </head>
 <body>
-    <div><h1>Gatekeeper | User Registration</h1></div>
+    <div id="header"><h1 id="headerContent">Gatekeeper | User Registration</h1></div>
     <form action="" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
