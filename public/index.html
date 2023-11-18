@@ -3,110 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
     <title>Gatekeeper | Control</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            height: 100vh;
-        }
-
-        #main {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 3;
-            justify-content: center;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #logs {
-            font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            padding: 50px;
-            display: block;
-            border-left: 1px solid black;
-        }
-
-        #header {
-            width:100%; 
-            background: url(yourimage);
-            padding: 0 0 80px 0;
-        }
-
-        #headerContent {
-            margin: 0 auto; width: 315px;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            display: block;
-            margin: 0 auto;
-            padding: 10px 15px;
-            border: 3px solid black;
-            border-radius: 50px;
-            width: 100px;
-            height: 100px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #statusBase {
-            padding: 40px;
-            font-size: large;
-        }
-
-        #status {
-            color: red;
-        }
-    </style>
 </head>
 <body>
     <div id="main">
         <div id="header"><h1 id="headerContent">Gatekeeper | Control</h1></div>
-        <form action="" method="post">
+        <form action="javascript:openGate()" method="post">
             <div id="statusBase">Gate is: <span id="status">Closed</span></div>
 
             <button type="submit" id="openBtn">Open</button>
         </form>
     </div>
-    <div id="logs">
-        <div>Monday, Jan 3, 2020: 12:12:12 - user opened gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user exited gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user opened gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user exited gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user opened gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user exited gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user opened gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user exited gate</div>
-        <div>Monday, Jan 3, 2020: 12:12:12 - user opened gate</div>
-    </div>
+    <div id="logs"></div>
 </body>
 </html>

@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <script src="login.js"></script>
     <title>Gatekeeper | User Login</title>
 </head>
 <body>
-    <div> 
-        <h1>Gatekeeper | User Login</h1>
+    <div id="header"> 
+        <h1 id="headerContent">Gatekeeper | User Login</h1>
     </div>
-    <form action="" method="post">
+    <form action="javascript:login()" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
 
@@ -17,6 +19,7 @@
         <input type="password" id="password" name="password" required>
 
         <button type="submit">Login</button>
+        <a class="register" href="register.html">Register</a>
     </form>
 
 </body>
