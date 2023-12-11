@@ -32,3 +32,14 @@ GateKeeper revolutionizes the way we interact with our environments by bridging 
 - **Login** - Register and login users. Credentials are stored, can't operate gate unless authorized by an auth token AND current access code
 - **WebSocket** - When the gate is opened, a timestamped log is available to admins
 - **React** - Application will be refactored with React
+
+###HTML Deliverable
+For this deliverable I built out the structure of my application using HTML.
+
+- HTML pages - Three HTML page that represent the ability to register, login, and control the gate
+- Links - The register page automatically links to the login (then to the control) page. The voter page contains a button for gate control, and well as a section for logs
+- Text - Login and Register boxes guide the process, while the control page uses text to represent gate status
+- Images - I couldn't figure out how to include an image and so I didn't do this. 😔
+- Login - Input box and submit button for login.
+- Database - Authorization to open the gate is kept in the database
+- WebSocket - The logs will be sent real time
