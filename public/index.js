@@ -1,26 +1,18 @@
-localStorage.setItem("__gate_open", "true");
-localStorage.setItem("__logs", "");
+function register() {
+    var username = document.getElementById("username").value;
+    var gatecode = document.getElementById("gatecode").value;
+    var password = document.getElementById("password").value;
+    var confirm = document.getElementById("confirm_password").value;
 
-function openGate() {
-    localStorage.setItem("__gate_open", "true");
-    var $el = document.getElementById("status");
-    $el.textContent="Open";
-    $el.style.color="green";
-    setTimeout(closeGate, 3000);
-    addLog("opened");
-}
-
-function closeGate() {
-    localStorage.setItem("__gate_open", "false");
-    var $el = document.getElementById("status");
-    $el.textContent="Closed";
-    $el.style.color="red";
-    addLog("closed");
-}
-
-function addLog(action) {
-    var date = new Date().toLocaleString();
-    var $el = document.createElement("div");
-    $el.innerHTML = `${date} - user ${action} gate`;
-    document.getElementById("logs").prepend($el);
+    if (password == confirm) {
+        var user = {
+            username,
+            password,
+            gatecode
+        }
+        localStorage.setItem(username, JSON.stringify(user));
+        location.href = "login.html";
+    } else {    
+        alert('Password does not match confirmation');
+    }
 }
