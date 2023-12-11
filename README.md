@@ -43,3 +43,15 @@ For this deliverable I built out the structure of my application using HTML.
 - Login - Input box and submit button for login.
 - Database - Authorization to open the gate is kept in the database
 - WebSocket - The logs will be sent real time
+
+#### Rubric
+| 20% | HTML Pages for each component of your application                        | Three HTML page that represent the ability to register, login, and control the gate                                                                              |   |
+|-----|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
+| 10% | Links between pages as necessary                                         | The register page automatically links to the login (then to the control) page. The voter page contains a button for gate control, and well as a section for logs |   |
+| 10% | Application textual content                                              | Login and Register boxes guide the process, while the control page uses text to represent gate status                                                            |   |
+| 10% | Placeholder for 3rd party service calls                                  | Gate open/close will talk to a Raspberry pi to control gate                                                                                                      |   |
+| 10% | Application images                                                       | I added the Logo of my storage facility                                                                                                                          |   |
+| 10% | Login placeholder, including username display                            | Input box and submit button for login.                                                                                                                           |   |
+| 10% | Database data placeholder showing content stored in the database         | Authorization to open the gate is kept in the database                                                                                                           |   |
+| 10% | WebSocket data placeholder showing where real-time communication will go | The logs will be sent real time                                                                                                                                  |   |
+| 10% | Multiple Git commits with meaningful comments.                           | Um... I think so :D                                                                                                                                              |   |
