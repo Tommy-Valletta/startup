@@ -1,19 +1,56 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: white;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     height: 100vh;
+}
+
+header {
+    background-color: gray;
+    display: block;
+}
+
+footer {
+    background-color: rgb(124, 147, 116);
+    display: block;
+    padding: .5em;
+    text-align: center;
+}
+
+#headerBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#headerContent {
+    background-color: rgb(141, 45, 50);
+    display: block;
+    margin: 0 auto; width: 315px;
+    text-align: center;
+    width: 100%;
+}
+
+#headerWelcome {
+    flex-grow: 2;
+}
+
+#logo {
+    width: 5em;
+    float: left;
+    padding: 0 1em 0 0;
 }
 
 #main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-grow: 3;
     justify-content: center;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 #logs {
@@ -23,15 +60,6 @@ body {
     padding: 50px;
     display: block;
     border-left: 1px solid black;
-}
-
-#header {
-    width:100%; 
-    padding: 0 0 80px 0;
-}
-
-#headerContent {
-    margin: 0 auto; width: 315px;
 }
 
 form {
@@ -77,4 +105,27 @@ button:hover {
 
 #status {
     color: red;
+}
+
+nav {
+    height: 54px;
+    flex-grow: 2;
+}
+
+menu {
+    float: right;
+    padding-top: 3%;
+    padding-right: 6%;
+}
+
+nav menu li {
+    display: inline;
+    font-size: 18px;
+    padding: 8px;
+}
+
+nav menu li a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
 }
