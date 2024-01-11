@@ -1,18 +1,18 @@
-function register() {
-    var username = document.getElementById("username").value;
-    var gatecode = document.getElementById("gatecode").value;
-    var password = document.getElementById("password").value;
-    var confirm = document.getElementById("confirm_password").value;
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const app = express();
 
-    if (password == confirm) {
-        var user = {
-            username,
-            password,
-            gatecode
-        }
-        localStorage.setItem(username, JSON.stringify(user));
-        location.href = "login.html";
-    } else {    
-        alert('Password does not match confirmation');
-    }
-}
+app.use(cookieParser());
+
+app.post('/cookie/:name/:value', (req, res, next) => {
+  res.cookie(req.params.name, req.params.value);
+  res.send({cookie: `${req.params.name}:${req.params.value}`});
+});
+
+app.get('/cookie', (req, res, next) => {
+  res.send({cookie: req.cookies});
+});
+
+app.use(express.static('public'));
+
+app.listen(8080);

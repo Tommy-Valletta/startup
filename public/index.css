@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+        height: 100vh;
+}
+
+header {
+    background-color: gray;
+    display: block;
+}
+
+footer {
+    background-color: rgb(124, 147, 116);
+    display: block;
+    padding: .5em;
+    text-align: center;
+}
+
+#headerBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#headerContent {
+    background-color: rgb(141, 45, 50);
+    display: block;
+    margin: 0 auto; width: 315px;
+    text-align: center;
+    width: 100%;
+    }
+
+#headerWelcome {
+    flex-grow: 2;
+}
+
+#logo {
+    width: 5em;
+    float: left;
+    padding: 0 1em 0 0;
+}
+
+form {
+    background-color: #fff;
+        border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+padding: 5em;
+    margin: 4em auto;
+    width: 20em;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+display: block;
+    margin: .5em auto;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+a.register {
+    display: block;
+    margin: 0 auto;
+    width: 6em;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    color: gray;
+}
+
+nav {
+    height: 54px;
+    flex-grow: 2;
+}
+
+menu {
+    float: right;
+    padding-top: 3%;
+    padding-right: 6%;
+}
+
+nav menu li {
+    display: inline;
+    font-size: 18px;
+    padding: 8px;
+}
+
+nav menu li a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
