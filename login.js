@@ -1,41 +1,67 @@
 const config = require('config');
 const crypto = require('crypto');
 const { v4: uuidv4 } = require('uuid');
-const { saveUser, getUserByAuthToken, getUserByUsername, getAllUsers, updateAuthToken } = require('./database');
+const {
+    saveUser,
+    deleteUserIfExists,
+    getUserByAuthToken,
+    getUserByUsername,
+    getAllUsers,
+    updateAuthToken
+} = require('./database');
 
 const algorithm = 'aes-256-cbc';
-const key = config.cryptoKey;
-const iv = crypto.randomBytes(16);
+const key = config.crypto.key;
+const iv = config.crypto.iv;
 
 function getAuthToken(password, passwordConf) {
     return uuidv4();
 }
 
-function checkAuthToken(username, password) {
-    return true;
+//Encrypting text
+function encrypt(text) {
+    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+    let encrypted = cipher.update(text);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
 }
 
-function encrypt(text) {
-    const cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
-    let encrypted = cipher.update(text, 'utf-8', 'hex');
-    encrypted += cipher.final('hex');
-    return { iv: iv.toString('hex'), encryptedData: encrypted };
+// Decrypting text
+function decrypt(text) {
+    let iv = Buffer.from(text.iv, 'hex');
+    let encryptedText = Buffer.from(text.encryptedData, 'hex');
+    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
 }
-  
-function decrypt(encryptedData, inputIV) {
-    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), Buffer.from(inputIV, 'hex'));
-    let decrypted = decipher.update(encryptedData, 'hex', 'utf-8');
-    decrypted += decipher.final('utf-8');
-    return decrypted;
+
+function validate(req, res, next) {
+    const authToken = req.cookies['gatekeeper-authtoken'];
+    if (authToken) {
+        const user = getUserByAuthToken(authToken);
+        if (user) {
+            res.redirect('/control.html');
+            return;
+        }
+    }
+    res.redirect('/login.html');
+}
+
+function passwordsMatch(p1, p2) {
+    return (p1.encryptedData === p2.encryptedData) && (p1.iv === p2.iv);
 }
 
 module.exports = (app) => {
+    app.get('/', validate);
+    app.get('/index.html', validate);
+    app.post('/validate', validate);
 
     app.post('/register', async (req, res, next) => {
-        const { username, gatecode, password, passwordConf } = req.body;
-        
-        if (password != passwordConf) {
-            res.status(500).send({message: 'Password and Password Confirmation do not match'});
+        const { username, gatecode, password, confirm_password } = req.body;
+
+        if (password != confirm_password) {
+            res.status(500).send({ message: 'Password and Password Confirmation do not match' });
             return;
         }
 
@@ -46,15 +72,22 @@ module.exports = (app) => {
             authToken: getAuthToken()
         };
 
-        saveUser(user);
-
-        res.cookie('gatekeeper-authtoken', user.authToken, { maxAge: 1000 * 60 * 60 * 8, httpOnly: true });
-        res.redirect('/control.html');
+        try {
+            await deleteUserIfExists(gatecode);
+            const response = await saveUser(user);
+            res.cookie('gatekeeper-authtoken', user.authToken, { maxAge: 1000 * 60 * 60 * 8, httpOnly: true });
+            res.redirect('/control.html');
+        }
+        catch (err) {
+            res.status(500).send({ message: 'Error saving user' });
+            return;
+        }
     });
 
     app.post('/login', async (req, res, next) => {
-        const user = getUserByUsername(req.body.username);
-        if (user && encrypt(req.body.password) === user.password ) {
+        const user = await getUserByUsername(req.body.username);
+        const password = encrypt(req.body.password);
+        if (user && passwordsMatch(password, user.password)) {
             const authToken = getAuthToken();
             await updateAuthToken(user._id, authToken);
             res.cookie('gatekeeper-authtoken', authToken, { maxAge: 1000 * 60 * 60 * 8, httpOnly: true });
@@ -62,22 +95,10 @@ module.exports = (app) => {
             return
         }
         else {
-            res.status(401).send({message: 'Invalid username or password'});
+            res.status(401).send({ message: 'Invalid username or password' });
         };
 
     });
-
-    app.post('/validate', async (req, res, next) => {
-        const authToken = req.cookies['gatekeeper-authtoken'];
-        if (authToken) {
-            const user = getUserByAuthToken(authToken);
-            if (user) {
-                res.status(200).send({ status: 'ok' });
-                return;
-            }
-        }
-        res.redirect('/login.html');
-    })
 
     app.get('/users', async (req, res, next) => {
         res.send(await getAllUsers());

@@ -4,17 +4,17 @@
   "description": "startup application project for CS260",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Thomas Valletta",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.10",
     "cookie-parser": "^1.4.6",
-    "crypto": "^1.0.1",
     "express": "^4.18.2",
     "express-ws": "^5.0.2",
     "mongodb": "^6.3.0",
-    "node-config": "^0.0.2",
     "uuid": "^9.0.1"
   }
 }

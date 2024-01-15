@@ -1,3 +1,4 @@
+const config = require('config');
 const express = require('express');
 const expressWS = require('express-ws');
 const cookieParser = require('cookie-parser');
@@ -11,18 +12,18 @@ const expws = expressWS(app);
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
 login(app);
 logger(app, expws.getWss('/'));
 
 app.post('/cookie/:name/:value', (req, res, next) => {
   res.cookie(req.params.name, req.params.value);
-  res.send({cookie: `${req.params.name}:${req.params.value}`});
+  res.send({ cookie: `${req.params.name}:${req.params.value}` });
 });
 
 app.get('/cookie', (req, res, next) => {
-  res.send({cookie: req.cookies});
+  res.send({ cookie: req.cookies });
 });
 
 app.use(express.static('public'));

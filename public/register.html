@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/auth.css">
-    <script src="js/auth.js"></script>
-    <title>Gatekeeper | User Login</title>
+    <link rel="stylesheet" href="styles/reg.css">
+    <script src="js/reg.js"></script>
+    <title>Gatekeeper | User Registration</title>
 </head>
 
 <body>
     <header>
-        <h1 id="headerContent">Gatekeeper | Login</h1>
+        <h1 id="headerContent">Gatekeeper | Registration</h1>
         <div id="headerBar">
             <div id="headerWelcome">
                 <img src="https://s3-media0.fl.yelpcdn.com/bphoto/XSxE9wgxspioU3Nf61Qz7w/348s.jpg" id="logo" />
@@ -23,18 +23,23 @@
                     <li><a href="index.html">Control</a></li>
                 </menu>
             </nav>
-        </div>
     </header>
+
     <main>
-        <form action="login" method="post">
+        <form action="register" method="post">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
+
+            <label for="gatecode">Gate Code:</label>
+            <input type="gatecode" id="gatecode" name="gatecode" required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
 
-            <button type="submit">Login</button>
-            <a class="register" href="register.html">Register</a>
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+
+            <button type="submit">Register</button>
         </form>
     </main>
 
@@ -44,10 +49,6 @@
         <br />
         <a href="https://github.com/Tommy-Valletta/startup">GitHub</a>
     </footer>
-</body>
-
-</html>
-
 </body>
 
 </html>
