@@ -26,6 +26,6 @@ app.get('/cookie', (req, res, next) => {
   res.send({ cookie: req.cookies });
 });
 
-app.use(express.static('public'));
+app.use(express.static('web/dist'));
 
 app.listen(8080);
