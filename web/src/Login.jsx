@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import "./styles/auth.css"
 
 export function Login() {
     return(

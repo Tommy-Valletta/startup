@@ -1,0 +1,51 @@
+header {
+    background-color: gray;
+    display: block;
+}
+
+#headerBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#headerContent {
+    background-color: rgb(141, 45, 50);
+    display: block;
+    margin: 0 auto; width: 315px;
+    text-align: center;
+    width: 100%;
+}
+
+#headerWelcome {
+    flex-grow: 2;
+}
+
+#logo {
+    width: 7em;
+    float: left;
+    padding: 0 1em 0 0;
+}
+
+nav {
+    height: 54px;
+    flex-grow: 2;
+}
+
+menu {
+    float: right;
+    padding-top: 3%;
+    padding-right: 6%;
+}
+
+nav menu li {
+    display: inline;
+    font-size: 18px;
+    padding: 8px;
+}
+
+nav menu li a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}

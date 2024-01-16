@@ -4,11 +4,12 @@ import { Control } from "./Control"
 import { Login } from "./Login"
 import { Register } from "./Register"
 import { Footer } from "./Footer"
+import "./styles/app.css"
 
 function App() {
 
   return (
-    <>
+    <div>
       <Header />
       <Routes>
         <Route path="/" element={<Control />} />
@@ -16,7 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   )
 }
 
