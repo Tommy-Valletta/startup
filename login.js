@@ -36,12 +36,28 @@ function decrypt(text) {
     return decrypted.toString();
 }
 
-function validate(req, res, next) {
+async function validate(req, res, next) {
     const authToken = req.cookies['gatekeeper-authtoken'];
     if (authToken) {
-        const user = getUserByAuthToken(authToken);
+        const user = await getUserByAuthToken(authToken);
         if (user) {
             res.redirect('/control.html');
+            return;
+        }
+    }
+    res.redirect('/login.html');
+}
+
+async function getUser(req, res, next) {
+    const authToken = req.cookies['gatekeeper-authtoken'];
+    if (authToken) {
+        const user = await getUserByAuthToken(authToken);
+        if (user) {
+            const safeUser = {
+                username: user.username,
+                gatecode: user.gatecode
+            }
+            res.send(safeUser);
             return;
         }
     }
@@ -99,6 +115,8 @@ module.exports = (app) => {
         };
 
     });
+
+    app.get('/user', getUser);
 
     app.get('/users', async (req, res, next) => {
         res.send(await getAllUsers());
