@@ -1,28 +1,28 @@
-form {
+.register div {
     background-color: #fff;
-        border-radius: 8px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-padding: 5em;
+    padding: 5em;
     margin: 4em auto;
     width: 20em;
 }
 
-label {
+.register label {
     display: block;
     margin-bottom: 8px;
 }
 
-input {
+.register input {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
 }
 
-button {
+.register button {
     background-color: #4caf50;
     color: #fff;
-display: block;
+    display: block;
     margin: .5em auto;
     padding: 10px 15px;
     border: none;
@@ -30,7 +30,7 @@ display: block;
     cursor: pointer;
 }
 
-button:hover {
+.register button:hover {
     background-color: #45a049;
 }
 

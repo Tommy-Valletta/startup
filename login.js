@@ -36,43 +36,30 @@ function decrypt(text) {
     return decrypted.toString();
 }
 
-async function validate(req, res, next) {
-    const authToken = req.cookies['gatekeeper-authtoken'];
-    if (authToken) {
-        const user = await getUserByAuthToken(authToken);
-        if (user) {
-            res.redirect('/control.html');
-            return;
-        }
-    }
-    res.redirect('/login.html');
-}
-
 async function getUser(req, res, next) {
     const authToken = req.cookies['gatekeeper-authtoken'];
     if (authToken) {
         const user = await getUserByAuthToken(authToken);
         if (user) {
-            const safeUser = {
-                username: user.username,
-                gatecode: user.gatecode
-            }
-            res.send(safeUser);
+            res.send(getSafeUser(user));
             return;
         }
     }
-    res.redirect('/login.html');
+    res.status(400).send({ message: 'User not found' });
 }
 
 function passwordsMatch(p1, p2) {
     return (p1.encryptedData === p2.encryptedData) && (p1.iv === p2.iv);
 }
 
-module.exports = (app) => {
-    app.get('/', validate);
-    app.get('/index.html', validate);
-    app.post('/validate', validate);
+function getSafeUser(user) {
+    return {
+        username: user.username,
+        gatecode: user.gatecode
+    }
+}
 
+module.exports = (app) => {
     app.post('/register', async (req, res, next) => {
         const { username, gatecode, password, confirm_password } = req.body;
 
@@ -92,7 +79,7 @@ module.exports = (app) => {
             await deleteUserIfExists(gatecode);
             const response = await saveUser(user);
             res.cookie('gatekeeper-authtoken', user.authToken, { maxAge: 1000 * 60 * 60 * 8, httpOnly: true });
-            res.redirect('/control.html');
+            res.send(getSafeUser(user));
         }
         catch (err) {
             res.status(500).send({ message: 'Error saving user' });
@@ -107,7 +94,7 @@ module.exports = (app) => {
             const authToken = getAuthToken();
             await updateAuthToken(user._id, authToken);
             res.cookie('gatekeeper-authtoken', authToken, { maxAge: 1000 * 60 * 60 * 8, httpOnly: true });
-            res.redirect('/control.html');
+            res.send(getSafeUser(user));
             return
         }
         else {

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import "./styles/auth.css"
 
 export function Login() {
-    return(
-        <main>
-            <form action="login" method="post">
+    return (
+        <main className='login'>
+            <div>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required></input>
 
@@ -14,7 +14,7 @@ export function Login() {
 
                 <button type="submit">Login</button>
                 <a class="register" href="register.html">Register</a>
-            </form>
+            </div>
         </main>
     )
 }

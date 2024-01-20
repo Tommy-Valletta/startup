@@ -17,15 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 login(app);
 logger(app, expws.getWss('/'));
 
-app.post('/cookie/:name/:value', (req, res, next) => {
-  res.cookie(req.params.name, req.params.value);
-  res.send({ cookie: `${req.params.name}:${req.params.value}` });
-});
-
-app.get('/cookie', (req, res, next) => {
-  res.send({ cookie: req.cookies });
-});
-
 app.use(express.static('web/dist'));
+app.get('*', (req, res, next) => {
+  res.sendFile('web/dist/index.html', { root: '.' });
+});
 
-app.listen(8080);
+app.listen(8080, () => {
+  console.log('Node Express Server running on port 8080');
+});

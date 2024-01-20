@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import "./styles/control.css"
 
-export function Control() {
-    const ws = new WebSocket('ws://localhost:8080');
+function toUpperCase(status) {
+    return status.charAt(0).toUpperCase() + status.slice(1)
+}
+
+export function Control({ user, logs, status }) {
 
     function openGate() {
         fetch('/open-gate', {
@@ -12,38 +15,30 @@ export function Control() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ username: 'username' })
-        });
+            body: JSON.stringify({ username: user.username })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data));
     }
 
-    ws.onopen = () => {
-        console.log('Websocket open in Browser');
-        ws.send('Testing Text');
-    }
-    
-    ws.onmessage = (message) => {
-        console.log('Message received: ', message.data);
-        const data = JSON.parse(message.data);
-        if (data.action === 'opened') {
-            var $el = document.getElementById("status");
-            $el.textContent = "Open";
-            $el.style.color = "green";
-        }
-        else if (data.action === 'closed') {
-            var $el = document.getElementById("status");
-            $el.textContent = "Closed";
-            $el.style.color = "red";
-        }
-        addLog(data);
-    }
-    
-    return(
-        <div id="main">
-            <form method="post">
-                <div id="statusBase">Gate is: <span id="status">Closed</span></div>
-                <button type="submit" id="openBtn" onClick={openGate}>Open</button>
-            </form>
-            <div id="logs"></div>
-        </div>
+    const upper = toUpperCase(status);
+    return (
+        <main className='control'>
+            <div>
+                <div id="statusBase">Gate is:
+                    <span id="status" className={status}> {upper} </span>
+                </div>
+                <button type="submit" id="openBtn" className={status} onClick={openGate}>{upper}</button>
+            </div>
+            <ul>
+                {logs.map((log, index) => (
+                    <li key={index}>
+                        <span>{new Date(log.timestamp).toLocaleString()} - </span>
+                        <span>{log.user} </span>
+                        <span>{log.action} gate</span>
+                    </li>
+                ))}
+            </ul>
+        </main>
     )
 }

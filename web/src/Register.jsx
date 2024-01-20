@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import "./styles/reg.css"
 
 export function Register() {
-    return(
-        <main>
-            <form action="register" method="post">
+    return (
+        <main className='register'>
+            <div>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required></input>
 
@@ -19,7 +19,7 @@ export function Register() {
                 <input type="password" id="confirm_password" name="confirm_password" required></input>
 
                 <button type="submit">Register</button>
-            </form>
+            </div>
         </main>
     )
 }

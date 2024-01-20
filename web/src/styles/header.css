@@ -12,7 +12,8 @@ header {
 #headerContent {
     background-color: rgb(141, 45, 50);
     display: block;
-    margin: 0 auto; width: 315px;
+    margin: 0 auto;
+    width: 315px;
     text-align: center;
     width: 100%;
 }

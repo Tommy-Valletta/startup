@@ -1,4 +1,4 @@
-#main {
+main.control {
     display: flex;
     flex-direction: row;
     flex-grow: 3;
@@ -7,35 +7,36 @@
     justify-content: space-evenly;
 }
 
-#logs {
+.control ul li {
+    color: black;
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     flex-direction: column;
-    padding: 50px;
     display: block;
     border-left: 1px solid black;
+    padding-left: 2em;
 }
 
-form {
+.control div {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-label {
+.control label {
     display: block;
     margin-bottom: 8px;
 }
 
-input {
+.control input {
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
 }
 
-button {
+.control button {
     background-color: #4caf50;
     color: #fff;
     display: block;
@@ -48,16 +49,27 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.control button:hover {
     background-color: #45a049;
 }
 
-#statusBase {
+.control button.opened {
+    background-color: #4caf50;
+}
+
+.control button.closed {
+    background-color: red;
+}
+
+.control #statusBase {
     padding: 40px;
     font-size: large;
 }
 
-#status {
+.control #status.closed {
     color: red;
 }
 
+.control #status.opened {
+    color: #4caf50;
+}
