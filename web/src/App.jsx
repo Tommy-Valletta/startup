@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom"
 import { Header } from "./Header"
 import { Control } from "./Control"
 import { Login } from "./Login"
@@ -14,6 +14,7 @@ function App() {
   const [logs, setLogs] = useState([]);
   const [status, setStatus] = useState('closed');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const connection = useRef(null);
 
@@ -49,25 +50,27 @@ function App() {
   }, [setLogs, setStatus])
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const response = await fetch("/user");
-      const user = await response.json();
-      return user;
-    }
+    if (!location.pathname || location.pathname == "/" || location.pathname == "/control") {
+      const fetchUser = async () => {
+        const response = await fetch("/user");
+        const user = await response.json();
+        return user;
+      }
 
-    fetchUser()
-      .then((user) => {
-        if (user.username) {
-          setUser(user);
-        } else {
+      fetchUser()
+        .then((user) => {
+          if (user.username) {
+            setUser(user);
+          } else {
+            navigate("/login");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
           navigate("/login");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        navigate("/login");
-      });
-  }, [navigate]);
+        });
+      }
+  }, [navigate, location]);
 
   useEffect(() => {
     fetch('https://api.weather.gov/gridpoints/SLC/106,146/forecast')
@@ -84,7 +87,7 @@ function App() {
       <Routes>
         <Route index element={<Control user={user} logs={logs} status={status} />} />
         <Route path="/control" element={<Control user={user} logs={logs} status={status} />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setUser={setUser}/>} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
